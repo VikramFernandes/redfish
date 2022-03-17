@@ -119,8 +119,14 @@ def parseXMLDict(xmlDict):
         "FW" : xmlDict['RIMP']['MP']['FWRI']
     }
 
-    if 'NICS' in xmlDict.keys():
-        retDict['NICS'] = xmlDict['RIMP']['HSI']['NICS']
+    if 'NICS' in xmlDict['RIMP']['HSI'].keys():
+ #       retDict['NICS'] = xmlDict['RIMP']['HSI']['NICS']
+        for nic in xmlDict['RIMP']['HSI']['NICS']['NIC']:            
+            if 'STATUS' in nic and nic['STATUS'] == "OK":
+                desc_port = nic['DESCRIPTION'] + '- Port'
+                desc_mac = nic['DESCRIPTION'] + '- MAC'
+                retDict[desc_port] = nic['PORT']                 
+                retDict[desc_mac] = nic['MACADDR']                 
     
     return retDict
 
@@ -177,7 +183,7 @@ def main():
                 retDict['iLO'] = iLO
                 outDict.append(retDict)
         
-    print(tabulate(outDict,headers='keys',showindex=True))                  
+    print(tabulate(outDict,headers='keys'))                  
 
 # Startup
 if __name__ == "__main__":
