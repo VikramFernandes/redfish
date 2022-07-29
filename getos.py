@@ -3,8 +3,8 @@ import json
 import pprint
 
 username = "Administrator"
-password = "8JWSPZK5"
-ilo = "10.181.0.20"
+password = ""
+ilo = ""
 
 # connect
 url = "https://" + ilo + "/redfish/v1/SessionService/Sessions"
